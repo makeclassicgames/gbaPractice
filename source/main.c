@@ -28,13 +28,13 @@ OBJ_ATTR obj_buffer[128];
 OBJ_AFFINE *obj_aff_buffer = (OBJ_AFFINE*)obj_buffer;
 
 void load_back1(void){
-	memcpy32(&tile_mem[0][0], back1Tiles, back1TilesLen / 4);
-	memcpy32(&se_mem[30][0], back1Map, back1MapLen / 4);
+	memcpy32(&tile_mem[1][0], back1Tiles, back1TilesLen / 4);
+	memcpy32(&se_mem[31][0], back1Map, back1MapLen / 4);
 }
 
 void load_mapa1(void){
-	memcpy32(&tile_mem[1][0], mapa1Tiles, mapa1TilesLen / 4);
-	memcpy32(&se_mem[31][0], mapa1Map, mapa1MapLen / 4);
+	memcpy32(&tile_mem[0][0], mapa1Tiles, mapa1TilesLen / 4);
+	memcpy32(&se_mem[30][0], mapa1Map, mapa1MapLen / 4);
 	memcpy32(pal_bg_mem, back1Pal, back1PalLen / 4);
 
 }
@@ -80,10 +80,11 @@ int main(void)
 	irq_enable(II_VBLANK);
 	anim=IDLE;
 	frame=0;
-	//load_back1();
+
+	load_back1();
 	load_mapa1();
-	REG_BG1CNT = BG_CBB(0) | BG_SBB(30) | BG_8BPP | BG_REG_32x32;
-	REG_BG0CNT = BG_CBB(1) | BG_SBB(31) | BG_8BPP | BG_REG_32x32;
+	REG_BG1CNT = BG_CBB(1) | BG_SBB(31) | BG_8BPP | BG_REG_32x32;
+	REG_BG0CNT = BG_CBB(0) | BG_SBB(30) | BG_8BPP | BG_REG_32x32;
 	load_sprite();
 
 	REG_DISPCNT = DCNT_MODE0 | DCNT_BG0 | DCNT_BG1| DCNT_OBJ | DCNT_OBJ_1D;
